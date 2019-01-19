@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import { Input, InputNumber, Table, Card, Tag, Select, Button, Popover, Radio, message } from 'antd';
 import GradeInput from './GradeInput'
 import GradeTags from './GradeTags'
+import PercentSelectors from './PercentSelectors'
 import AssignmentNameInput from './AssignmentNameInput'
 
 const Option = Select.Option;
@@ -192,11 +193,6 @@ class CardWithTable extends Component {
       },
     ],
     gradeWanted: 100,
-    aPercentages: [{key: 99, letter: "A+"}, {key: 95, letter: "A"}, {key: 93, letter: "A-"}],
-    bPercentages: [{key: 91, letter: "B+"}, {key: 87, letter: "B"}, {key: 85, letter: "B-"}],
-    cPercentages: [{key: 83, letter: "C+"}, {key: 77, letter: "C"}, {key: 75, letter: "C-"}],
-    dPercentages: [{key: 73, letter: "D+"}, {key: 67, letter: "D"}, {key: 65, letter: "D-"}],
-    fPercentages: [{key: 64, letter: "F"}],
     view: 'mp'
   };
 
@@ -261,18 +257,9 @@ class CardWithTable extends Component {
     this.setState({ mpData })
   }
 
-  handleRadioClick(value) {
+  handleRadioClick = value => {
     console.log(value)
     this.setState({ gradeWanted: value })
-  }
-
-  renderRadio(arr) {
-    return (
-      <RadioButton
-        value={arr.key}
-        onClick={() => this.handleRadioClick(arr.key)}
-        key={arr.key} >{arr.key}%</RadioButton>
-    )
   }
 
   render() {
@@ -280,13 +267,6 @@ class CardWithTable extends Component {
     let pointsEarned = mpData.reduce((total, item) => total + item['pointsEarned'], 0);
     let pointsPossible = mpData.reduce((total, item) => total + item['pointsPossible'], 0);
     let percentage = (pointsEarned/pointsPossible)*100;
-
-    let aRadio = this.state.aPercentages.map(arr => this.renderRadio(arr))
-    let bRadio = this.state.bPercentages.map(arr => this.renderRadio(arr))
-    let cRadio = this.state.cPercentages.map(arr => this.renderRadio(arr))
-    let dRadio = this.state.dPercentages.map(arr => this.renderRadio(arr))
-    let fRadio = this.state.fPercentages.map(arr => this.renderRadio(arr))
-
 
     let data, columns;
     switch (view){
@@ -353,23 +333,8 @@ class CardWithTable extends Component {
               type="secondary"
               onClick={ this.removeDiff }>Clear</Button>
           </div>
-          <div style={{ textAlign: "center", marginTop: "3%" }}>
-            <Popover placement="bottom" content={aRadio}>
-              <Tag color='green'>A</Tag>
-            </Popover>
-            <Popover placement="bottom" content={bRadio}>
-              <Tag color='lime'>B</Tag>
-            </Popover>
-            <Popover placement="bottom" content={cRadio}>
-              <Tag color='gold'>C</Tag>
-            </Popover>
-            <Popover placement="bottom" content={dRadio}>
-              <Tag color='volcano'>D</Tag>
-            </Popover>
-            <Popover placement="bottom" content={fRadio}>
-              <Tag color='red'>F</Tag>
-            </Popover>
-          </div>
+          <PercentSelectors handleClick={this.handleRadioClick} />
+
         </Card>
         <Table
           style={{
