@@ -44,8 +44,8 @@ class GradeTags extends Component {
 
     return (
       <div style={{display: 'inline-block', paddingLeft: '5%'}}>
-        <Tooltip title={ prettyPercentage }>
-          <Tag color={ color }>{ value }</Tag>
+        <Tooltip title={ value }>
+          <Tag color={ color }>{ prettyPercentage }</Tag>
         </Tooltip>
       </div>
     )
