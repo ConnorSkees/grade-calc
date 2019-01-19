@@ -10,7 +10,7 @@ const RadioButton = Radio.Button;
 
 class CardWithTable extends Component {
   state = {
-    data: [{'assignment': 'Dhmo Petition',
+    mpData: [{'assignment': 'Dhmo Petition',
       'key': 'zi3CHdkW2g',
       'pointsEarned': 10.0,
       'pointsPossible': 10.0},
@@ -97,7 +97,7 @@ class CardWithTable extends Component {
               defaultValue={record.pointsEarned}
               max={Math.max(record.pointsPossible, record.pointsEarned)}
               onChange={value => {
-                let thisData = this.state.data.filter(x => x.key === record.key)[0];
+                let thisData = this.state.mpData.filter(x => x.key === record.key)[0];
 
                 let max = Math.max(record.pointsPossible, record.pointsEarned);
                 if (value === undefined){
@@ -107,7 +107,7 @@ class CardWithTable extends Component {
                 }
 
                 thisData.pointsEarned = value;
-                this.setState({ data: thisData&&this.state.data })
+                this.setState({ mpData: thisData&&this.state.mpData })
               }}
               value={record.pointsEarned}
               min={0}
@@ -127,6 +127,7 @@ class CardWithTable extends Component {
     cPercentages: [{key: 83, letter: "C+"}, {key: 77, letter: "C"}, {key: 75, letter: "C-"}],
     dPercentages: [{key: 73, letter: "D+"}, {key: 67, letter: "D"}, {key: 65, letter: "D-"}],
     fPercentages: [{key: 64, letter: "F"}],
+    view: 'mp'
   };
 
   handleChange(value) {
@@ -139,13 +140,13 @@ class CardWithTable extends Component {
 
   calculateMPGrade = () => {
     this.removeDiff()
-    let { data, gradeWanted } = this.state;
+    let { mpData, gradeWanted } = this.state;
     gradeWanted -= .5;
     console.log(gradeWanted)
-    let diff_entry = data.filter(x => x['key'] === 'diff')
+    let diff_entry = mpData.filter(x => x['key'] === 'diff')
 
-    let pointsEarned = data.reduce((total, item) => total + item['pointsEarned'], 0);
-    let pointsPossible = data.reduce((total, item) => total + item['pointsPossible'], 0);
+    let pointsEarned = mpData.reduce((total, item) => total + item['pointsEarned'], 0);
+    let pointsPossible = mpData.reduce((total, item) => total + item['pointsPossible'], 0);
     let diff = 0;
 
     let initialPointsPossible = pointsPossible;
@@ -167,27 +168,27 @@ class CardWithTable extends Component {
     }
 
     if (diff_entry.length > 0) {
-      data[0] = {
+      mpData[0] = {
         key: 'diff',
         assignment: `Points needed to get ${gradeWanted}`,
         pointsEarned: diff,
         pointsPossible: diff,
       }
     } else {
-      data.unshift({
+      mpData.unshift({
         key: 'diff',
         assignment: `Points needed to get ${gradeWanted}`,
         pointsEarned: diff,
         pointsPossible: diff,
       })
     }
-    this.setState({ data })
+    this.setState({ mpData })
   }
 
   removeDiff = () => {
-    let { data } = this.state;
-    data = data.filter(arr => arr.key !== 'diff')
-    this.setState({ data })
+    let { mpData } = this.state;
+    mpData = mpData.filter(arr => arr.key !== 'diff')
+    this.setState({ mpData })
   }
 
   handleRadioClick(value) {
@@ -205,9 +206,9 @@ class CardWithTable extends Component {
   }
 
   render() {
-    let { data } = this.state;
-    let pointsEarned = data.reduce((total, item) => total + item['pointsEarned'], 0);
-    let pointsPossible = data.reduce((total, item) => total + item['pointsPossible'], 0);
+    let { mpData } = this.state;
+    let pointsEarned = mpData.reduce((total, item) => total + item['pointsEarned'], 0);
+    let pointsPossible = mpData.reduce((total, item) => total + item['pointsPossible'], 0);
     let percentage = (pointsEarned/pointsPossible)*100;
 
     let aRadio = this.state.aPercentages.map(arr => this.renderRadio(arr))
@@ -294,7 +295,7 @@ class CardWithTable extends Component {
           }}
           columns={ this.state.columns }
           pagination={ false }
-          dataSource={ this.state.data }
+          dataSource={ this.state.mpData }
         />
       </div>
     )
