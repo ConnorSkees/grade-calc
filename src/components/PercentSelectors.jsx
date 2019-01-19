@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import GradeTags from './GradeTags';
 import { Tag, Popover, Radio } from 'antd';
 
 const RadioButton = Radio.Button;

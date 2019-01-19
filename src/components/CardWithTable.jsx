@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import { Input, InputNumber, Table, Card, Tag, Select, Button, Popover, Radio, message } from 'antd';
+import { Input, InputNumber, Table, Card, Select, Button, message } from 'antd';
 import GradeInput from './GradeInput'
 import GradeTags from './GradeTags'
 import PercentSelectors from './PercentSelectors'
 import AssignmentNameInput from './AssignmentNameInput'
 
 const Option = Select.Option;
-const RadioButton = Radio.Button;
 
 class CardWithTable extends Component {
   state = {
@@ -258,8 +257,6 @@ class CardWithTable extends Component {
     let pointsEarned = mpData.reduce((total, item) => total + item['pointsEarned'], 0);
     let pointsPossible = mpData.reduce((total, item) => total + item['pointsPossible'], 0);
     let diff = 0;
-
-    let initialPointsPossible = pointsPossible;
 
     if ((pointsEarned/pointsPossible)*100 >= gradeWanted){
       message.success('You already have your desired grade :)');

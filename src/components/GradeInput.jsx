@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { InputNumber } from 'antd';
-import GradeTags from "./GradeTags"
 
 
 class GradeInput extends Component {
@@ -29,9 +28,6 @@ class GradeInput extends Component {
 
   render() {
     let { value } = this.props;
-    let percentage = (value/Math.max(this.props.pointsPossible, 1));
-    percentage = percentage ? percentage*100 : 100;
-    // console.log(`Percentage: ${percentage}`)
     // console.log(`Value: ${value}`)
 
     if (!this.state.isFocused){
