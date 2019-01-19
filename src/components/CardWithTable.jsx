@@ -182,6 +182,8 @@ class CardWithTable extends Component {
               width: '350px',
               marginLeft: 'auto',
               marginRight: 'auto',
+              marginTop: '1%',
+              marginBottom: '1%',
             }}
         >
           <div>
@@ -231,7 +233,9 @@ class CardWithTable extends Component {
         </Card>
         <Table
           style={{
-            width: '100%'
+            width: '70%',
+            marginLeft: 'auto',
+            marginRight: 'auto',
           }}
           columns={ columns }
           pagination={ false }
