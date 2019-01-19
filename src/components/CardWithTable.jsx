@@ -127,6 +127,49 @@ class CardWithTable extends Component {
     this.setState({ gradeWanted })
   }
 
+  calculateMPGrade = () => {
+    this.removeDiff()
+    let { data, gradeWanted } = this.state;
+    gradeWanted -= .5;
+    console.log(gradeWanted)
+    let diff_entry = data.filter(x => x['key'] === 'diff')
+
+    let pointsEarned = data.reduce((total, item) => total + item['pointsEarned'], 0);
+    let pointsPossible = data.reduce((total, item) => total + item['pointsPossible'], 0);
+    let diff = 0;
+
+    let initialPointsPossible = pointsPossible;
+
+    if ((pointsEarned/pointsPossible)*100 >= gradeWanted){
+      message.success('You already have your desired grade :)');
+      return '';
+    }
+
+    while ((pointsEarned/pointsPossible)*100 < gradeWanted){
+      pointsEarned++;
+      pointsPossible++;
+      diff += 1
+      if (diff >= 100){
+        message.error(`Unable to achieve desired grade (got to ${((pointsEarned/pointsPossible).toPrecision(3))*100}%).`)
+        console.log(`Grade not possible (got to ${(pointsEarned/pointsPossible)*100})`)
+        break
+      }
+    }
+
+    if (diff_entry.length > 0) {
+      data[0] = {
+        key: 'diff',
+        assignment: `Points needed to get ${gradeWanted}`,
+        pointsEarned: diff,
+        pointsPossible: diff,
+      }
+    } else {
+      data.unshift({
+        key: 'diff',
+        assignment: `Points needed to get ${gradeWanted}`,
+        pointsEarned: diff,
+        pointsPossible: diff,
+      })
     }
     console.log(sum);
     return sum;
