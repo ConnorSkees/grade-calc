@@ -11,7 +11,7 @@ class GradeTags extends Component {
     let D = 66;
     let F = 0;
     let color = "geekblue";
-    let value = "";
+    let value = "no percentage specified";
 
     let { percentage } = this.props;
     let prettyPercentage = `${percentage.toPrecision(3)}%`;

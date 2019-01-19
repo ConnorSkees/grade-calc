@@ -27,10 +27,6 @@ class GradeInput extends Component {
     this.setState({ value });
   }
 
-  reset() {
-    this.setState({ value: this.props.defaultValue })
-  }
-
   render() {
     let { value } = this.state;
     let percentage = (value/Math.max(this.props.pointsPossible, 1));
@@ -56,7 +52,7 @@ class GradeInput extends Component {
         <InputNumber
           value={ value }
           onChange={value => this.handleChange(value)}
-          onBlur={() => this.handleBlur(value)}
+          onBlur={ this.handleBlur }
           autoFocus
           formatter={value => `${value}`}
           { ...this.props } />
