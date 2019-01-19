@@ -320,6 +320,11 @@ class CardWithTable extends Component {
         data = gpaData;
         columns = gpaColumns;
         break;
+
+      default:
+        data = mpData;
+        columns = mpColumns;
+        break;
     }
     console.log(data)
     return (
