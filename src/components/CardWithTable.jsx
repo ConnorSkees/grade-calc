@@ -122,33 +122,16 @@ class CardWithTable extends Component {
       }, ],
   };
 
-  sumPointsEarned(){
-    let sum = 0;
-    let { data } = this.state;
-    for (let i=0; i < data.length; i++){
-      sum += data[i]['pointsEarned'];
     }
     console.log(sum);
     return sum;
   }
 
-  sumPointsPossible(){
-    let sum = 0;
     let { data } = this.state;
-    for (let i=0; i < data.length; i++){
-      sum += data[i]['pointsPossible'];
-    }
-    return sum;
   }
 
-  sumInput(){
-    return (
-      <Input readOnly value={`Total Points:  ${this.sumPointsEarned()} / ${this.sumPointsPossible()}`}/>
-    )
   }
 
-  handleChange(value) {
-    console.log(`selected ${value}`);
   }
 
   render() {
