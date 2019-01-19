@@ -2,25 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import GradeInput from './components/GradeInput'
-import GradeTags from './components/GradeTags'
-import AssignmentNameInput from './components/AssignmentNameInput'
 import CardWithTable from './components/CardWithTable'
 
 import 'antd/dist/antd.css';
-import { Input, InputNumber, Table, Divider, Card, Form, Tag, Select } from 'antd';
-
-function reset(self) {
-  self.reset();
-}
-
-
-
 
 const mountNode = document.getElementById('root');
 
-
-const x = "x"
 ReactDOM.render(
   <CardWithTable />,
   mountNode
