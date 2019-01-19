@@ -55,6 +55,7 @@ class GradeInput extends Component {
           onBlur={ this.handleBlur }
           autoFocus
           formatter={value => `${value}`}
+          parser={string => string.replace(/\D+/g, '')}
           { ...this.props } />
     </div>
     )
