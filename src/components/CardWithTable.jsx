@@ -75,7 +75,7 @@ class CardWithTable extends Component {
       'pointsEarned': 23.0,
       'pointsPossible': 25.0}
     ],
-    columns: [{
+    mpColumns: [{
         title: 'Assignment',
         dataIndex: 'assignment',
         key: 'assignment',
@@ -121,6 +121,76 @@ class CardWithTable extends Component {
           <GradeInput value={record.pointsPossible} defaultValue={record.pointsPossible} min={record.pointsPossible} max={record.pointsPossible} />
         )
       }, ],
+
+    gpaColumns: [{
+        title: 'Class',
+        dataIndex: 'className',
+        key: 'className',
+        render: (text, record) => (
+          <div>
+          <AssignmentNameInput
+            defaultValue={record.className}
+          />
+        </div>
+        )
+      },
+      {
+        title: 'Weight',
+        dataIndex: 'weight',
+        key: 'weight',
+        render: (text, record) => (
+          <AssignmentNameInput
+            defaultValue={record.weight}
+          />
+        )
+      },
+      {
+        title: 'Credits',
+        dataIndex: 'credits',
+        key: 'credits',
+        render: (text, record) => (
+          <GradeInput value={record.credits} min={.25} max={3} />
+        )
+      },
+      {
+        title: 'Grade',
+        dataIndex: 'grade',
+        key: 'grade',
+        render: (text, record) => (
+          <GradeInput value={record.grade} min={0} max={100} />
+        )
+      },
+    ],
+    gpaData: [
+      {
+        key: '1',
+        className: 'AP Calculus II',
+        weight: 'AP',
+        credits: 1,
+        grade: 55,
+      },
+      {
+        key: '2',
+        className: 'Honors Spanish IV',
+        weight: 'honors',
+        credits: 1,
+        grade: 93,
+      },
+      {
+        key: '3',
+        className: 'CIS 105',
+        weight: 'dualenrollment',
+        credits: 1,
+        grade: 87,
+      },
+      {
+        key: '4',
+        className: 'Freshman Biology',
+        weight: 'regular',
+        credits: 1.5,
+        grade: 99,
+      },
+    ],
     gradeWanted: 100,
     aPercentages: [{key: 99, letter: "A+"}, {key: 95, letter: "A"}, {key: 93, letter: "A-"}],
     bPercentages: [{key: 91, letter: "B+"}, {key: 87, letter: "B"}, {key: 85, letter: "B-"}],
