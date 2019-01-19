@@ -33,22 +33,15 @@ class GradeInput extends Component {
     percentage = percentage ? percentage*100 : 100;
     // console.log(`Percentage: ${percentage}`)
     // console.log(`Value: ${value}`)
-    let gradeTag = ""
-    if (this.props.showGradeTag){
-      gradeTag = <GradeTags percentage={percentage} />
-
-    }
 
     if (!this.state.isFocused){
       return (
       <div>
-        {gradeTag}
         <span onClick={ this.handleClick }>{ value }</span>
     </div>
       )}
     return (
       <div>
-        {gradeTag}
         <InputNumber
           value={ value }
           onChange={value => this.props.handleChange(value)}
