@@ -129,6 +129,10 @@ class CardWithTable extends Component {
     fPercentages: [{key: 64, letter: "F"}],
   };
 
+  handleChange(value) {
+    console.log(`selected ${value}`);
+  }
+
   handleWantedChange = gradeWanted => {
     this.setState({ gradeWanted })
   }
@@ -177,11 +181,13 @@ class CardWithTable extends Component {
         pointsPossible: diff,
       })
     }
-    console.log(sum);
-    return sum;
+    this.setState({ data })
   }
 
+  removeDiff = () => {
     let { data } = this.state;
+    data = data.filter(arr => arr.key !== 'diff')
+    this.setState({ data })
   }
 
   handleRadioClick(value) {
@@ -286,7 +292,7 @@ class CardWithTable extends Component {
             marginLeft: 'auto',
             marginRight: 'auto',
           }}
-          columns={ columns }
+          columns={ this.state.columns }
           pagination={ false }
           dataSource={ this.state.data }
         />
