@@ -150,7 +150,27 @@ class CardWithTable extends Component {
         dataIndex: 'credits',
         key: 'credits',
         render: (text, record) => (
-          <GradeInput value={record.credits} min={.25} max={3} />
+          <GradeInput
+            value={record.credits}
+            min={0}
+            max={3}
+            step={.5}
+            onChange={value => {
+              let thisData = this.state.gpaData.filter(x => x.key === record.key)[0];
+
+              let max = 3;
+              let min = 0;
+
+              if (value === undefined || value < min){
+                value = min;
+              } else if (value > max){
+                value = max;
+              }
+
+              thisData.credits = value;
+              this.setState({ gpaData: thisData&&this.state.gpaData });
+            }}
+          />
         )
       },
       {
@@ -158,7 +178,26 @@ class CardWithTable extends Component {
         dataIndex: 'grade',
         key: 'grade',
         render: (text, record) => (
-          <GradeInput value={record.grade} min={0} max={100} />
+          <GradeInput
+            value={record.grade}
+            min={0}
+            max={100}
+            onChange={value => {
+              let thisData = this.state.gpaData.filter(x => x.key === record.key)[0];
+
+              let max = 100;
+              let min = 0;
+
+              if (value === undefined || value < min){
+                value = min;
+              } else if (value > max){
+                value = max;
+              }
+
+              thisData.grade = value;
+              this.setState({ gpaData: thisData&&this.state.gpaData });
+            }}
+          />
         )
       },
     ],
