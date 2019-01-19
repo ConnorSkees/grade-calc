@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import { Input, InputNumber, Table, Divider, Card, Form, Tag, Select, Tooltip } from 'antd';
+import { Input, InputNumber, Table, Card, Tag, Select, Button, Popover, Radio, message } from 'antd';
 import GradeInput from './GradeInput'
 import GradeTags from './GradeTags'
 import AssignmentNameInput from './AssignmentNameInput'
 
 const Option = Select.Option;
+const RadioButton = Radio.Button;
 
 class CardWithTable extends Component {
   state = {
@@ -121,6 +122,11 @@ class CardWithTable extends Component {
         )
       }, ],
     gradeWanted: 100,
+    aPercentages: [{key: 99, letter: "A+"}, {key: 95, letter: "A"}, {key: 93, letter: "A-"}],
+    bPercentages: [{key: 91, letter: "B+"}, {key: 87, letter: "B"}, {key: 85, letter: "B-"}],
+    cPercentages: [{key: 83, letter: "C+"}, {key: 77, letter: "C"}, {key: 75, letter: "C-"}],
+    dPercentages: [{key: 73, letter: "D+"}, {key: 67, letter: "D"}, {key: 65, letter: "D-"}],
+    fPercentages: [{key: 64, letter: "F"}],
   };
 
   handleWantedChange = gradeWanted => {
