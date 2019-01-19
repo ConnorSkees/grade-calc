@@ -7,40 +7,6 @@ import AssignmentNameInput from './AssignmentNameInput'
 
 const Option = Select.Option;
 
-const columns = [{
-    title: 'Assignment',
-    dataIndex: 'assignment',
-    key: 'assignment',
-    render: (text, record) => (
-      <AssignmentNameInput
-        defaultValue={record.assignment}
-      />
-    )
-  }, {
-    title: 'Points Earned',
-    dataIndex: 'pointsEarned',
-    key: 'pointsEarned',
-    render: (text, record) => (
-      <div>
-        <GradeInput
-          style={{  }}
-          pointsPossible={record.pointsPossible}
-          showGradeTag={true}
-          defaultValue={record.pointsEarned}
-          max={Math.max(record.pointsPossible, record.pointsEarned)}
-          min={0}
-        />
-      </div>
-    )
-  }, {
-    title: 'Points Possible',
-    dataIndex: 'pointsPossible',
-    key: 'pointsPossible',
-    render: (text, record) => (
-      <GradeInput defaultValue={record.pointsPossible} min={record.pointsPossible} max={record.pointsPossible} />
-    )
-  },];
-
 class CardWithTable extends Component {
   state = {
     data: [{
@@ -61,6 +27,52 @@ class CardWithTable extends Component {
         pointsEarned: 45,
         pointsPossible: 54,
       }],
+    columns: [{
+        title: 'Assignment',
+        dataIndex: 'assignment',
+        key: 'assignment',
+        render: (text, record) => (
+          <div>
+          <AssignmentNameInput
+            defaultValue={record.assignment}
+          /><GradeTags percentage={(record.pointsEarned/record.pointsPossible)*100} />
+        </div>
+        )
+      }, {
+        title: 'Points Earned',
+        dataIndex: 'pointsEarned',
+        key: 'pointsEarned',
+        render: (text, record) => (
+            <GradeInput
+              style={{  }}
+              pointsPossible={record.pointsPossible}
+              defaultValue={record.pointsEarned}
+              max={Math.max(record.pointsPossible, record.pointsEarned)}
+              onChange={value => {
+                let thisData = this.state.data.filter(x => x.key === record.key)[0];
+
+                let max = Math.max(record.pointsPossible, record.pointsEarned);
+                if (value === undefined){
+                  value = 0;
+                } else if (value > max){
+                  value = max;
+                }
+
+                thisData.pointsEarned = value;
+                this.setState({ data: thisData&&this.state.data })
+              }}
+              value={record.pointsEarned}
+              min={0}
+            />
+        )
+      }, {
+        title: 'Points Possible',
+        dataIndex: 'pointsPossible',
+        key: 'pointsPossible',
+        render: (text, record) => (
+          <GradeInput value={record.pointsPossible} defaultValue={record.pointsPossible} min={record.pointsPossible} max={record.pointsPossible} />
+        )
+      }, ],
   };
 
   sumPointsEarned(){
