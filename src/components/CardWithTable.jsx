@@ -110,7 +110,7 @@ class CardWithTable extends Component {
               marginRight: 'auto',
             }}
         >
-        {this.sumInput()}
+          {this.sumInput()}
         </Card>
         <Table
           style={{
