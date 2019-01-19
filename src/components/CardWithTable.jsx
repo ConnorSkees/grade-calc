@@ -276,7 +276,7 @@ class CardWithTable extends Component {
   }
 
   render() {
-    let { mpData } = this.state;
+    let { view, mpData, mpColumns, gpaData, gpaColumns } = this.state;
     let pointsEarned = mpData.reduce((total, item) => total + item['pointsEarned'], 0);
     let pointsPossible = mpData.reduce((total, item) => total + item['pointsPossible'], 0);
     let percentage = (pointsEarned/pointsPossible)*100;
@@ -287,6 +287,20 @@ class CardWithTable extends Component {
     let dRadio = this.state.dPercentages.map(arr => this.renderRadio(arr))
     let fRadio = this.state.fPercentages.map(arr => this.renderRadio(arr))
 
+
+    let data, columns;
+    switch (view){
+      case 'mp':
+        data = mpData;
+        columns = mpColumns;
+        break;
+
+      case 'gpa':
+        data = gpaData;
+        columns = gpaColumns;
+        break;
+    }
+    console.log(data)
     return (
       <div>
         <Card
@@ -363,9 +377,9 @@ class CardWithTable extends Component {
             marginLeft: 'auto',
             marginRight: 'auto',
           }}
-          columns={ this.state.columns }
+          columns={ columns }
           pagination={ false }
-          dataSource={ this.state.mpData }
+          dataSource={ data }
         />
       </div>
     )
