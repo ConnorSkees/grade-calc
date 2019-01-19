@@ -16,6 +16,12 @@ class GradeTags extends Component {
     let { percentage } = this.props;
     let prettyPercentage = `${percentage.toPrecision(3)}%`;
 
+    if (isNaN(percentage)){
+      prettyPercentage = "100%";
+    } else if (percentage === Infinity){
+      prettyPercentage = "100%";
+    }
+
     if (percentage > A){
       color = "green";
       value = "A";
@@ -30,6 +36,9 @@ class GradeTags extends Component {
       value = "D";
     } else if (percentage >= F){
       color = "red";
+      value = "F";
+    } else {
+      color = "geekblue";
       value = "F";
     }
 
