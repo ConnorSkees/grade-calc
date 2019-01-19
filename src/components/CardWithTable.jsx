@@ -200,8 +200,8 @@ class CardWithTable extends Component {
     view: 'mp'
   };
 
-  handleChange(value) {
-    console.log(`selected ${value}`);
+  handleChange = view => {
+    this.setState({ view })
   }
 
   handleWantedChange = gradeWanted => {
