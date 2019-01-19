@@ -164,7 +164,13 @@ class CardWithTable extends Component {
     return (
       <div>
         <Card
-          title="MP Grade Calculator"
+          title={
+            <Select defaultValue="mp" style={{ width: 140 }} onChange={this.handleChange}>
+              <Option value="mp">MP Calc</Option>
+              <Option value="gpa">GPA Calc</Option>
+              <Option value="final">Final Calc</Option>
+            </Select>
+        }
           extra={
             <Select defaultValue="AP Calculus II" style={{ width: 140 }} onChange={this.handleChange}>
               <Option value="class1">Honors Calculus I</Option>
