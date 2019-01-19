@@ -120,7 +120,12 @@ class CardWithTable extends Component {
           <GradeInput value={record.pointsPossible} defaultValue={record.pointsPossible} min={record.pointsPossible} max={record.pointsPossible} />
         )
       }, ],
+    gradeWanted: 100,
   };
+
+  handleWantedChange = gradeWanted => {
+    this.setState({ gradeWanted })
+  }
 
     }
     console.log(sum);
@@ -130,11 +135,32 @@ class CardWithTable extends Component {
     let { data } = this.state;
   }
 
+  handleRadioClick(value) {
+    console.log(value)
+    this.setState({ gradeWanted: value })
   }
 
+  renderRadio(arr) {
+    return (
+      <RadioButton
+        value={arr.key}
+        onClick={() => this.handleRadioClick(arr.key)}
+        key={arr.key} >{arr.key}%</RadioButton>
+    )
   }
 
   render() {
+    let { data } = this.state;
+    let pointsEarned = data.reduce((total, item) => total + item['pointsEarned'], 0);
+    let pointsPossible = data.reduce((total, item) => total + item['pointsPossible'], 0);
+    let percentage = (pointsEarned/pointsPossible)*100;
+
+    let aRadio = this.state.aPercentages.map(arr => this.renderRadio(arr))
+    let bRadio = this.state.bPercentages.map(arr => this.renderRadio(arr))
+    let cRadio = this.state.cPercentages.map(arr => this.renderRadio(arr))
+    let dRadio = this.state.dPercentages.map(arr => this.renderRadio(arr))
+    let fRadio = this.state.fPercentages.map(arr => this.renderRadio(arr))
+
     return (
       <div>
         <Card
@@ -152,7 +178,50 @@ class CardWithTable extends Component {
               marginRight: 'auto',
             }}
         >
-          {this.sumInput()}
+          <div>
+            <Input
+              readOnly
+              style={{ display:'inlineBlock', width: '75%' }}
+              value={`Total Points:  ${pointsEarned} / ${pointsPossible}`}
+            />
+            <GradeTags percentage={ percentage } />
+          </div>
+          <div style={{ paddingTop: "3%" }}>
+            <span style={{ paddingRight: "5%" }}>I want</span>
+            <InputNumber
+              formatter={value => `${value}%`}
+              value={this.state.gradeWanted}
+              max={100}
+              min={0}
+              parser={string => string.replace(/[^\d\.]+/g, '')}
+              onChange={gradeWanted => this.handleWantedChange(gradeWanted) }
+            />
+            <Button
+              style={{ float: "right" }}
+              type="primary"
+              onClick={ this.calculateMPGrade }>Calculate</Button>
+            <Button
+              style={{ float: "right" }}
+              type="secondary"
+              onClick={ this.removeDiff }>Clear</Button>
+          </div>
+          <div style={{ textAlign: "center", marginTop: "3%" }}>
+            <Popover placement="bottom" content={aRadio}>
+              <Tag color='green'>A</Tag>
+            </Popover>
+            <Popover placement="bottom" content={bRadio}>
+              <Tag color='lime'>B</Tag>
+            </Popover>
+            <Popover placement="bottom" content={cRadio}>
+              <Tag color='gold'>C</Tag>
+            </Popover>
+            <Popover placement="bottom" content={dRadio}>
+              <Tag color='volcano'>D</Tag>
+            </Popover>
+            <Popover placement="bottom" content={fRadio}>
+              <Tag color='red'>F</Tag>
+            </Popover>
+          </div>
         </Card>
         <Table
           style={{
