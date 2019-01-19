@@ -192,16 +192,21 @@ class CardWithTable extends Component {
         grade: 99,
       },
     ],
+
     gradeWanted: 100,
     view: 'mp'
   };
 
-  handleChange = view => {
+  handleViewChange = view => {
     this.setState({ view })
   }
 
   handleWantedChange = gradeWanted => {
     this.setState({ gradeWanted })
+  }
+
+  handleMPClassChange = () => {
+    console.log("MP class changed. Nothing happened (for now).")
   }
 
   calculateMPGrade = () => {
@@ -285,14 +290,14 @@ class CardWithTable extends Component {
       <div>
         <Card
           title={
-            <Select defaultValue="mp" style={{ width: 140 }} onChange={this.handleChange}>
+            <Select defaultValue="mp" style={{ width: 140 }} onChange={this.handleViewChange}>
               <Option value="mp">MP Calc</Option>
               <Option value="gpa">GPA Calc</Option>
               <Option value="final">Final Calc</Option>
             </Select>
         }
           extra={
-            <Select defaultValue="AP Calculus II" style={{ width: 140 }} onChange={this.handleChange}>
+            <Select defaultValue="AP Calculus II" style={{ width: 140 }} onChange={this.handleMPClassChange}>
               <Option value="class1">Honors Calculus I</Option>
               <Option value="class2">AP U.S. History</Option>
               <Option value="class3">You're MOm</Option>
@@ -334,8 +339,8 @@ class CardWithTable extends Component {
               onClick={ this.removeDiff }>Clear</Button>
           </div>
           <PercentSelectors handleClick={this.handleRadioClick} />
-
         </Card>
+
         <Table
           style={{
             width: '70%',
