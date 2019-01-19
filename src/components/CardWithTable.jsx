@@ -161,7 +161,7 @@ class CardWithTable extends Component {
       pointsPossible++;
       diff += 1
       if (diff >= 100){
-        message.error(`Unable to achieve desired grade (got to ${((pointsEarned/pointsPossible).toPrecision(3))*100}%).`)
+        message.error(`Unable to achieve desired grade (got to ${((pointsEarned/pointsPossible)*100).toPrecision(3)}%).`)
         console.log(`Grade not possible (got to ${(pointsEarned/pointsPossible)*100})`)
         break
       }
