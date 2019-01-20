@@ -232,6 +232,7 @@ class CardWithTable extends Component {
         grade: 99,
       },
     ],
+    gpa: 0,
 
     gradeWanted: 100,
     view: 'mp',
@@ -368,18 +369,51 @@ class CardWithTable extends Component {
     let percentage = (pointsEarned/pointsPossible)*100;
     let gpa = this.calculateGPA();
 
-    let data, columns, calculate;
+    let data, columns, calculate, output;
     switch (view){
       case 'mp':
         data = mpData;
         columns = mpColumns;
         calculate = this.calculateMPGrade;
+        output = (
+          <React.Fragment>
+            <div>
+              <Input
+                readOnly
+                style={{ display:'inlineBlock', width: '75%' }}
+                value={ `Total Points:  ${pointsEarned} / ${pointsPossible}` }
+              />
+              <GradeTags percentage={ percentage } />
+            </div>
+            <div style={{ paddingTop: "3%" }}>
+              <span style={{ paddingRight: "5%" }}>I want</span>
+              <InputNumber
+                formatter={value => `${value}%`}
+                value={this.state.gradeWanted}
+                max={100}
+                min={0}
+                parser={string => string.replace(/[^\d\.]+/g, '')}
+                onChange={gradeWanted => this.handleWantedChange(gradeWanted) }
+              />
+              <Button
+                style={{ float: "right" }}
+                type="primary"
+                onClick={ calculate }>Calculate</Button>
+              <Button
+                style={{ float: "right" }}
+                type="secondary"
+                onClick={ this.removeDiff }>Clear</Button>
+            </div>
+            <PercentSelectors handleClick={this.handleRadioClick} />
+          </React.Fragment>
+        )
         break;
 
       case 'gpa':
         data = gpaData;
         columns = gpaColumns;
         calculate = this.calculateGPA;
+        output =  `${gpa}`
         break;
 
       default:
@@ -414,34 +448,8 @@ class CardWithTable extends Component {
               marginBottom: '1%',
             }}
         >
-          <div>
-            <Input
-              readOnly
-              style={{ display:'inlineBlock', width: '75%' }}
-              value={`Total Points:  ${pointsEarned} / ${pointsPossible}`}
-            />
-            <GradeTags percentage={ percentage } />
-          </div>
-          <div style={{ paddingTop: "3%" }}>
-            <span style={{ paddingRight: "5%" }}>I want</span>
-            <InputNumber
-              formatter={value => `${value}%`}
-              value={this.state.gradeWanted}
-              max={100}
-              min={0}
-              parser={string => string.replace(/[^\d\.]+/g, '')}
-              onChange={gradeWanted => this.handleWantedChange(gradeWanted) }
-            />
-            <Button
-              style={{ float: "right" }}
-              type="primary"
-              onClick={ calculate }>Calculate</Button>
-            <Button
-              style={{ float: "right" }}
-              type="secondary"
-              onClick={ this.removeDiff }>Clear</Button>
-          </div>
-          <PercentSelectors handleClick={this.handleRadioClick} />
+        { output }
+
         </Card>
 
         <Table
