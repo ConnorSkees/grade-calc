@@ -168,6 +168,7 @@ class CardWithTable extends Component {
 
               thisData.credits = value;
               this.setState({ gpaData: thisData&&this.state.gpaData });
+              this.updateGPA();
             }}
           />
         )
@@ -195,6 +196,7 @@ class CardWithTable extends Component {
 
               thisData.grade = value;
               this.setState({ gpaData: thisData&&this.state.gpaData });
+              this.updateGPA();
             }}
           />
         )
@@ -316,6 +318,11 @@ class CardWithTable extends Component {
     this.setState({ mpData })
   }
 
+  updateGPA = () => {
+    let gpa = this.calculateGPA();
+    this.setState({ gpa });
+  }
+
   calculateGPA = () => {
     let { gpaData, weightDict, percentToGPA } = this.state;
 
@@ -359,6 +366,7 @@ class CardWithTable extends Component {
     let pointsEarned = mpData.reduce((total, item) => total + item['pointsEarned'], 0);
     let pointsPossible = mpData.reduce((total, item) => total + item['pointsPossible'], 0);
     let percentage = (pointsEarned/pointsPossible)*100;
+    let gpa = this.calculateGPA();
 
     let data, columns, calculate;
     switch (view){
