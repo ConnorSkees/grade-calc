@@ -309,21 +309,24 @@ class CardWithTable extends Component {
     let pointsPossible = mpData.reduce((total, item) => total + item['pointsPossible'], 0);
     let percentage = (pointsEarned/pointsPossible)*100;
 
-    let data, columns;
+    let data, columns, calculate;
     switch (view){
       case 'mp':
         data = mpData;
         columns = mpColumns;
+        calculate = this.calculateMPGrade;
         break;
 
       case 'gpa':
         data = gpaData;
         columns = gpaColumns;
+        calculate = this.calculateGPA;
         break;
 
       default:
         data = mpData;
         columns = mpColumns;
+        calculate = this.calculateMPGrade;
         break;
     }
     console.log(data)
@@ -373,7 +376,7 @@ class CardWithTable extends Component {
             <Button
               style={{ float: "right" }}
               type="primary"
-              onClick={ this.calculateMPGrade }>Calculate</Button>
+              onClick={ calculate }>Calculate</Button>
             <Button
               style={{ float: "right" }}
               type="secondary"
