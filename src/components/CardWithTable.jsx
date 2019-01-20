@@ -316,6 +316,33 @@ class CardWithTable extends Component {
     this.setState({ mpData })
   }
 
+  calculateGPA = () => {
+    let { gpaData, weightDict, percentToGPA } = this.state;
+
+    let totalCredits = 0;
+    let totalPoints = 0;
+
+    for(let i=0; i<gpaData.length; i++){
+      let { grade, credits, weight } = gpaData[i];
+        weight = weightDict[weight];
+        for(let [key, value] of Object.entries(percentToGPA)){
+          key = parseInt(key)
+          if (grade <= key){
+            grade = value;
+            if (key > 84){
+              grade += weight;
+            }
+            break;
+          }
+        }
+        grade *= credits;
+        totalPoints += grade;
+        totalCredits += credits;
+    }
+    let gpa = (totalPoints/totalCredits).toPrecision(3);
+    return gpa;
+  }
+
   removeDiff = () => {
     let { mpData } = this.state;
     mpData = mpData.filter(arr => arr.key !== 'diff')
