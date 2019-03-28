@@ -5,16 +5,17 @@ import { Tag, Tooltip } from 'antd';
 class GradeTags extends Component {
   state = {};
   render() {
-    let A = 93;
-    let B = 85;
-    let C = 76;
-    let D = 66;
+    let A = 93 - 1;
+    let B = 85 - 1;
+    let C = 76 - 1;
+    let D = 66 - 1;
     let F = 0;
     let color = "geekblue";
     let value = "no percentage specified";
 
     let { percentage } = this.props;
-    let prettyPercentage = `${percentage.toPrecision(3)}%`;
+    // let prettyPercentage = `${percentage.toPrecision(3)}%`;
+    let prettyPercentage = `${Math.round(percentage)}%`;
 
     if (isNaN(percentage)){
       prettyPercentage = "100%";
