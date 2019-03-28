@@ -28,7 +28,7 @@ class PercentSelectors extends Component {
     let dRadio = this.state.dPercentages.map(arr => this.renderRadio(arr))
     let fRadio = this.state.fPercentages.map(arr => this.renderRadio(arr))
     return (
-      <div style={{ textAlign: "center", marginTop: "3%" }}>
+      <div style={ this.props.style }>
         <Popover placement="bottom" content={aRadio}>
           <Tag color='green'>A</Tag>
         </Popover>
