@@ -8,10 +8,6 @@ import AssignmentNameInput from './AssignmentNameInput'
 
 const Option = Select.Option;
 
-// TODO: select option for weight
-// TODO: persistent name changes
-// TODO: points possible handle change
-
 class CardWithTable extends Component {
   state = {
     mpData: [{'assignment': 'Dhmo Petition',
@@ -212,21 +208,21 @@ class CardWithTable extends Component {
         className: 'AP Calculus II',
         weight: 'AP',
         credits: 1,
-        grade: 95,
+        grade: 55,
       },
       {
         key: '2',
         className: 'Honors Spanish IV',
         weight: 'honors',
         credits: 1,
-        grade: 95,
+        grade: 74,
       },
       {
         key: '3',
         className: 'CIS 105',
         weight: 'dualenrollment',
         credits: 1,
-        grade: 95,
+        grade: 87,
       },
       {
         key: '4',
@@ -266,10 +262,6 @@ class CardWithTable extends Component {
     }
   };
 
-  average(arr) {
-    return arr.reduce((a, b) => a + b, 0)/arr.length;
-  }
-
   handleViewChange = view => {
     this.setState({ view })
   }
@@ -303,8 +295,8 @@ class CardWithTable extends Component {
       pointsPossible++;
       diff += 1
       if (diff >= 100){
-        let percentage = ((pointsEarned/pointsPossible)*100).toPrecision(3);
-        message.error(`Got to ${percentage}% with 100 points.`)
+        message.error(`Unable to achieve desired grade (got to ${((pointsEarned/pointsPossible)*100).toPrecision(3)}%).`)
+        console.log(`Grade not possible (got to ${(pointsEarned/pointsPossible)*100})`)
         break
       }
     }
@@ -421,7 +413,7 @@ class CardWithTable extends Component {
         data = gpaData;
         columns = gpaColumns;
         calculate = this.calculateGPA;
-        output =  <span style={{ fontSize: '3em' }}>{ gpa }</span>
+        output =  `${gpa}`
         break;
 
       default:
