@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/grade-calc/static/css/1.cdc156b6.chunk.css"
   },
   {
-    "revision": "bc7de73f53d4e8b70bf6e9a9e3ac3ecc",
+    "revision": "68ffdd6728d99b862538807914aac08a",
     "url": "/grade-calc/index.html"
   }
 ];
