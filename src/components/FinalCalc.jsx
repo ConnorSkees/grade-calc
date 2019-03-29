@@ -254,9 +254,9 @@ class FinalCalc extends Component {
           <h1>{ percentage }%</h1>
         </div>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <Button onClick={ this.toggleAuto }>{ isAuto ? "Auto" : "Manual" }</Button>
+          <Button onClick={ this.toggleAuto }>{ isAuto ? "Manual" : "Auto" }</Button>
           <Button onClick={ this.reset }>Reset</Button>
-          <Button onClick={ this.toggleFullYear }>{ isFullYear ? "Full Year" : "Semester" }</Button>
+          <Button onClick={ this.toggleFullYear }>{ isFullYear ? "Semester" : "Full Year" }</Button>
         </div>
       </React.Fragment>
     )
