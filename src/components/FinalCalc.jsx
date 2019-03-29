@@ -246,7 +246,7 @@ class FinalCalc extends Component {
             )
           }) }
         </div>
-        <div style={{ paddingTop: "3%", height: "40px" }}>
+        <div style={{ paddingTop: "3%", height: "40px", visibility: isAuto ? "visible" : "hidden" }}>
             <span style={{ paddingRight: "0%" }}>I want</span>
             <GradeTags percentage={ gradeWanted } placement={ "right" } />
             <PercentSelectors style={{ display: "inline-block", float: "right" }} handleClick={ this.updateGradeWanted } />
