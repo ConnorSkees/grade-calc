@@ -147,7 +147,6 @@ class FinalCalc extends Component {
   }
 
   updateMP = (v, title) => {
-    v = v || 0; // v ||= 0;
     let inputs = this.state.inputs.map(i => {
       if (i.title === title){
         i.value = v;
@@ -231,7 +230,7 @@ class FinalCalc extends Component {
                   {i.title}
                 </div>
                 <InputNumber
-                  formatter={ string => string === "0" ? '' : string }
+                  formatter={ string => string === "0" ? '' : string}
                   style={ inputStyle }
                   key={ i.title }
                   title={ i.title }
@@ -248,7 +247,7 @@ class FinalCalc extends Component {
         </div>
         <div style={{ paddingTop: "3%", height: "40px" }}>
             <span style={{ paddingRight: "0%" }}>I want</span>
-            <GradeTags percentage={ gradeWanted } placement={ "right" } />
+            <GradeTags percentage={ gradeWanted } />
             <PercentSelectors style={{ display: "inline-block", float: "right" }} handleClick={ this.updateGradeWanted } />
         </div>
         <div style={{ width: '100%', borderTop: "1px solid gray", textAlign: "center" }}>
