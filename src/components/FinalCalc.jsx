@@ -94,16 +94,18 @@ class FinalCalc extends Component {
   }
 
   reset = () => {
+    let finalWeight = .1;
+    let mpCount = 4;
+
     this.setState({
       isAuto: true,
       alert: <Alert message="x" style={{visibility: "hidden"}}/>,
       gradeWanted: 95,
+      mpCount,
+      finalWeight
     })
 
-    this.updateFinalWeight(10);
-    this.updateMPCount(4);
 
-    let { finalWeight, mpCount } = this.state;
     let inputs = [];
     for(let i=0; i < mpCount; i++){
       inputs.push({
