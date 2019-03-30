@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import { Alert, Drawer, Icon, InputNumber, Card, Select, Button, message } from 'antd';
+import { Alert, Drawer, InputNumber, Card, Select, Button } from 'antd';
 import GradeTags from './GradeTags'
 import PercentSelectors from './PercentSelectors'
-import AssignmentNameInput from './AssignmentNameInput'
 
 const Option = Select.Option;
 
