@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import { Alert, InputNumber, Card, Select, Button, message } from 'antd';
+import { Alert, Drawer, Icon, InputNumber, Card, Select, Button, message } from 'antd';
 import GradeTags from './GradeTags'
 import PercentSelectors from './PercentSelectors'
 import AssignmentNameInput from './AssignmentNameInput'
@@ -19,6 +19,8 @@ class FinalCalc extends Component {
     gpa: 0,
     isFullYear: true, // as opposed to semester
     isAuto: true, // as opposed to manual
+
+    drawerVisible: false,
 
     alert: <Alert message="x" style={{visibility: "hidden"}}/>,
 
@@ -81,9 +83,9 @@ class FinalCalc extends Component {
     }
   };
 
-  average(arr) {
-    return arr.reduce((a, b) => a + b, 0)/arr.length;
-  }
+  toggleDrawer = () => {
+    this.setState({ drawerVisible: !this.state.drawerVisible });
+  };
 
   reset = () => {
     this.setState({
@@ -216,7 +218,8 @@ class FinalCalc extends Component {
 
     let output = (
       <React.Fragment>
-        <h2>Calculate your final grade</h2>
+        <h2>Calculate your final grade  <Icon type="question-circle-o" onClick={this.toggleDrawer}/></h2>
+
         { alert }
         <div style={{ display: "flex", flexDirection: "column"}}>
           { inputs.map(i => {
@@ -291,6 +294,15 @@ class FinalCalc extends Component {
         { output }
 
         </Card>
+        <Drawer
+          title="Final Grade Calculator"
+          placement="right"
+          closable={false}
+          onClose={this.toggleDrawer}
+          visible={this.state.drawerVisible}
+        >
+          <p>A calculator to see what you need to get on your final to finish with the grade you want.</p>
+        </Drawer>
       </div>
     )
   };
