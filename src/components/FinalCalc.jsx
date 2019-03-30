@@ -91,6 +91,8 @@ class FinalCalc extends Component {
     this.setState({
       isAuto: true,
       isFullYear: true,
+      alert: <Alert message="x" style={{visibility: "hidden"}}/>,
+      gradeWanted: 95,
       inputs: [
         {
           'title': 'MP 1',
