@@ -271,7 +271,7 @@ class FinalCalc extends Component {
             }
 
             return (
-              <div style={{  alignSelf: "center", visibility: shouldDisplay }}>
+              <div key={ i.title } style={{  alignSelf: "center", visibility: shouldDisplay }}>
                 <div style={{ width: `${100/3}%`, display:"inline-block" }}>
                   {i.title}
                 </div>
