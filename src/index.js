@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import CardWithTable from './components/CardWithTable'
 import FinalCalc from './components/FinalCalc'
 
 import 'antd/dist/antd.css';
