@@ -1,7 +1,7 @@
 {
   "main.css": "/grade-calc/static/css/main.148859bc.chunk.css",
-  "main.js": "/grade-calc/static/js/main.17ab8888.chunk.js",
-  "main.js.map": "/grade-calc/static/js/main.17ab8888.chunk.js.map",
+  "main.js": "/grade-calc/static/js/main.126147a8.chunk.js",
+  "main.js.map": "/grade-calc/static/js/main.126147a8.chunk.js.map",
   "static/css/1.ceae487b.chunk.css": "/grade-calc/static/css/1.ceae487b.chunk.css",
   "static/js/1.6dc0a52d.chunk.js": "/grade-calc/static/js/1.6dc0a52d.chunk.js",
   "static/js/1.6dc0a52d.chunk.js.map": "/grade-calc/static/js/1.6dc0a52d.chunk.js.map",
@@ -10,6 +10,6 @@
   "static/css/1.ceae487b.chunk.css.map": "/grade-calc/static/css/1.ceae487b.chunk.css.map",
   "static/css/main.148859bc.chunk.css.map": "/grade-calc/static/css/main.148859bc.chunk.css.map",
   "index.html": "/grade-calc/index.html",
-  "precache-manifest.1aec3be116705f0ec7e3347e32682838.js": "/grade-calc/precache-manifest.1aec3be116705f0ec7e3347e32682838.js",
+  "precache-manifest.21533d34106edeb3c0cde2dd67c1f1aa.js": "/grade-calc/precache-manifest.21533d34106edeb3c0cde2dd67c1f1aa.js",
   "service-worker.js": "/grade-calc/service-worker.js"
 }

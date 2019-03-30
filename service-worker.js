@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/grade-calc/precache-manifest.1aec3be116705f0ec7e3347e32682838.js"
+  "/grade-calc/precache-manifest.21533d34106edeb3c0cde2dd67c1f1aa.js"
 );
 
 workbox.clientsClaim();
