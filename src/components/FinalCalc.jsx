@@ -14,116 +14,113 @@ const inputStyle = {
   alignSelf: "center",
 }
 
+const cardStyle = {
+    width: '350px',
+    margin: "auto",
+    marginTop: "10vh",
+    marginBottom: "10vh",
+}
+
 class FinalCalc extends Component {
-  state = {
-    gpa: 0,
-    isFullYear: true, // as opposed to semester
-    isAuto: true, // as opposed to manual
+  constructor(props){
+    super(props)
 
-    drawerVisible: false,
+    let finalWeight = .1
 
-    alert: <Alert message="x" style={{visibility: "hidden"}}/>,
+    this.state = {
+      gpa: 0,
+      isAuto: true, // as opposed to manual
 
-    gradeWanted: 95,
-    view: 'mp',
+      drawerVisible: false,
 
-    inputs: [
-      {
-        'title': 'MP 1',
-        'value': 0,
-        'weight': .9/4,
-        'semesterWeight': .9/2,
-      },
-      {
-        'title': 'MP 2',
-        'value': 0,
-        'weight': .9/4,
-        'semesterWeight': .9/2,
-      },
-      {
-        'title': 'MP 3',
-        'value': 0,
-        'weight': .9/4,
-      },
-      {
-        'title': 'MP 4',
-        'value': 0,
-        'weight': .9/4,
-      },
-      {
-        'title': 'Final',
-        'value': 0,
-        'weight': .1,
-        'semesterWeight': .1,
-      },
-    ],
+      alert: <Alert message="x" style={{visibility: "hidden"}}/>,
 
-    weightDict: {
-      'AP': .5,
-      'dualenrollment': .25,
-      'honors': .25,
-      'regular': 0,
-    },
-    percentToGPA: {
-      // use the maximum per range
-      100: 4,   // A+ 99-100
-      98: 4,    // A  95-98
-      94: 3.67, // A- 93-94
-      92: 3.33, // B+ 91-92
-      90: 3,    // B  87-90
-      86: 2.67, // B- 85-85
-      // does not recieve honors weight past this point
-      84: 2.33, // C+ 83-84
-      82: 2,    // C  77-82
-      76: 1.67, // C- 75-76
-      74: 1.33, // D+ 73-74
-      72: 1,    // D  67-72
-      66: .67,  // D- 65-66
-      64: 0,    // F  0-64
-    }
-  };
+      gradeWanted: 95,
+      view: 'mp',
+
+      finalWeight: finalWeight,
+      mpCount: 4,
+
+      inputs: [],
+
+      weightDict: {
+        'AP': .5,
+        'dualenrollment': .25,
+        'honors': .25,
+        'regular': 0,
+      },
+
+      percentToGPA: {
+        // use the maximum per range
+        100: 4,   // A+ 99-100
+        98: 4,    // A  95-98
+        94: 3.67, // A- 93-94
+        92: 3.33, // B+ 91-92
+        90: 3,    // B  87-90
+        86: 2.67, // B- 85-85
+        // does not recieve honors weight past this point
+        84: 2.33, // C+ 83-84
+        82: 2,    // C  77-82
+        76: 1.67, // C- 75-76
+        74: 1.33, // D+ 73-74
+        72: 1,    // D  67-72
+        66: .67,  // D- 65-66
+        64: 0,    // F  0-64
+      }
+    };
+    this.initInputs();
+  }
 
   toggleDrawer = () => {
     this.setState({ drawerVisible: !this.state.drawerVisible });
   };
 
+  initInputs() {
+    let { finalWeight, mpCount } = this.state;
+    let inputs = [];
+    for(let i=0; i < mpCount; i++){
+      inputs.push({
+          'title': `MP ${i+1}`,
+          'value': 0,
+          'weight': (1-finalWeight)/mpCount,
+      })
+    }
+
+    inputs.push({
+      'title': 'Final',
+      'value': 0,
+      'weight': finalWeight,
+    })
+    this.state.inputs = inputs;
+  }
+
   reset = () => {
     this.setState({
       isAuto: true,
-      isFullYear: true,
       alert: <Alert message="x" style={{visibility: "hidden"}}/>,
       gradeWanted: 95,
-      inputs: [
-        {
-          'title': 'MP 1',
-          'value': 0,
-          'weight': .9/4,
-          'semesterWeight': .9/2,
-        },
-        {
-          'title': 'MP 2',
-          'value': 0,
-          'weight': .9/4,
-          'semesterWeight': .9/2,
-        },
-        {
-          'title': 'MP 3',
-          'value': 0,
-          'weight': .9/4,
-        },
-        {
-          'title': 'MP 4',
-          'value': 0,
-          'weight': .9/4,
-        },
-        {
-          'title': 'Final',
-          'value': 0,
-          'weight': .1,
-          'semesterWeight': .1,
-        },
-      ]
     })
+
+    this.updateFinalWeight(10);
+    this.updateMPCount(4);
+
+    let { finalWeight, mpCount } = this.state;
+    let inputs = [];
+    for(let i=0; i < mpCount; i++){
+      inputs.push({
+          'title': `MP ${i+1}`,
+          'value': 0,
+          'weight': (1-finalWeight)/mpCount,
+      })
+    }
+
+    inputs.push({
+      'title': 'Final',
+      'value': 0,
+      'weight': finalWeight,
+    })
+
+    this.setState({ inputs })
   }
 
   toggleAuto = () => {
@@ -135,17 +132,67 @@ class FinalCalc extends Component {
   }
 
   toggleFullYear = () => {
-    let { isFullYear, gradeWanted } = this.state;
-    this.setState({ isFullYear: !isFullYear });
-    this.calculateFinal(gradeWanted);
+    let { inputs } = this.state;
+    if (inputs.length > 3) {
+      this.updateMPCount(2);
+    } else {
+      this.updateMPCount(4);
+    }
   }
 
   handleViewChange = view => {
     this.setState({ view });
   }
 
+  updateFinalWeight = (finalWeight) => {
+    let { inputs, mpCount } = this.state;
+    finalWeight /= 100;
+    inputs.map(i => {
+      if (i.title === "Final") {
+        i.weight = finalWeight;
+      } else {
+        i.weight = (1-finalWeight)/mpCount;
+      }
+      return i;
+    })
+    this.setState({ finalWeight, inputs })
+  }
+
+  updateMPCount = (mpCount) => {
+    let { finalWeight, inputs } = this.state;
+    let newInputs = [];
+    let value;
+    for(let i=0; i < mpCount; i++){
+      let thisInput = inputs[i];
+      try {
+        value = thisInput.title === "Final" ? 0 : thisInput.value || 0;
+      } catch {
+        value = 0;
+      }
+      newInputs.push({
+          'title': `MP ${i+1}`,
+          'value': value,
+          'weight': (1-finalWeight)/mpCount,
+      })
+    }
+
+    newInputs.push({
+      'title': 'Final',
+      'value': 0,
+      'weight': finalWeight,
+    })
+
+    // inputs.map(i => {
+    //   if (i.title !== "Final") {
+    //     i.weight = (1-finalWeight)/mpCount;
+    //   }
+    //   return i;
+    // })
+
+    this.setState({ inputs: newInputs, mpCount })
+  }
+
   updateGradeWanted = gradeWanted => {
-    console.log(gradeWanted);
     this.setState({ gradeWanted });
     this.calculateFinal(gradeWanted);
   }
@@ -165,18 +212,20 @@ class FinalCalc extends Component {
   }
 
   calculateFinal = (gradeWanted) => {
-    let { inputs, isFullYear, isAuto } = this.state;
+    let { inputs, isAuto, finalWeight } = this.state;
     if (isAuto) {
-      let weight = isFullYear ? "weight" : "semesterWeight";
       let finalGrade;
-      let total = inputs.filter(i => !i.title.startsWith("Final")&&i[weight]).map(i => i.value*i[weight]).reduce((a, b) => a+b);
+      let total = inputs.filter(i => !i.title.startsWith("Final")&&i.weight).map(i => i.value*i.weight).reduce((a, b) => a+b);
 
-      console.log("Total: ", total);
-      console.log("Grade Wanted: ", gradeWanted-.5);
-			for (let i=0; i*.1+total<=gradeWanted-.5; i++) {
+      // console.log("Total: ", total);
+      // console.log("Grade Wanted: ", gradeWanted-.5);
+			for (let i=0; i*finalWeight+total<=gradeWanted-.5; i++) {
+        if (i > 101){
+          break;
+        }
   			finalGrade = i;
   		}
-      console.log("Final grade: ", finalGrade);
+      // console.log("Final grade: ", finalGrade);
 
       if (finalGrade > 100) {
         this.setState({ alert: <Alert message="Desired grade is unachievable." type="error" showIcon/> })
@@ -189,7 +238,7 @@ class FinalCalc extends Component {
       }
 
       let inputss = inputs.map(i => {
-        if (i.title.startsWith("Final")){
+        if (i.title === "Final"){
           i.value = finalGrade;
         }
         return i;
@@ -198,35 +247,25 @@ class FinalCalc extends Component {
     }
   }
 
-  calculateFinalGrade = () => {
-    let { inputs, isFullYear } = this.state;
-    let weight = isFullYear ? "weight" : "semesterWeight";
-    if (isFullYear) {
-      console.log(inputs.map(i => i.value*i[weight]));
-        return inputs.map(i => i.value*i[weight]).reduce((a, b) => a+b)
-    }
-    return inputs.filter(i => i[weight]).map(i => i.value*i[weight]).reduce((a, b) => a+b)
-  }
-
   render() {
-    let decimal = this.calculateFinalGrade();
-    console.log(decimal);
-    let percentage = Math.round(decimal);
+    let { alert, inputs, isAuto, gradeWanted, finalWeight } = this.state;
 
-    let { alert, isFullYear, inputs, isAuto, gradeWanted } = this.state;
+    console.log(inputs)
+
+    let percentage = Math.round(inputs.map(i => i.value*i.weight).reduce((a, b) => a+b))
+
     if (!isAuto) {
       alert = <Alert message="x" type="info" style={{visibility: "hidden"}}/>
     }
 
     let output = (
       <React.Fragment>
-        <h2>Calculate your final grade  <Icon type="question-circle-o" onClick={this.toggleDrawer}/></h2>
-
+        <h2>Calculate your final grade</h2>
         { alert }
         <div style={{ display: "flex", flexDirection: "column"}}>
           { inputs.map(i => {
             let shouldDisplay = "visible"
-            if (!isFullYear && !(i.semesterWeight>0)){
+            if (i.title === "Final" && !this.state.finalWeight){
               shouldDisplay = "hidden"
             }
 
@@ -261,19 +300,11 @@ class FinalCalc extends Component {
         </div>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
           <Button onClick={ this.toggleAuto }>{ isAuto ? "Manual" : "Auto" }</Button>
-          <Button onClick={ this.reset }>Reset</Button>
-          <Button onClick={ this.toggleFullYear }>{ isFullYear ? "Semester" : "Full Year" }</Button>
+          <Button type="primary" onClick={ this.reset }>Reset</Button>
+          <Button onClick={ this.toggleFullYear }>{ inputs.length > 3 ? "Semester" : "Full Year" }</Button>
         </div>
       </React.Fragment>
     )
-    // <Button
-    //   style={{ float: "right" }}
-    //   type="primary"
-    //   onClick={ this.calculateFinalGrade }>Calculate</Button>
-    // <Button
-    //   style={{ float: "right" }}
-    //   type="secondary"
-    //   onClick={ this.removeDiff }>Clear</Button>
 
     return (
       <div>
@@ -285,13 +316,10 @@ class FinalCalc extends Component {
               <Option value="final">Final Calc</Option>
             </Select>
         }
-          style={{
-              width: '350px',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginTop: '1%',
-              marginBottom: '1%',
-            }}
+        extra={
+          <Button onClick={ this.toggleDrawer } >Advanced</Button>
+        }
+          style={ cardStyle }
         >
         { output }
 
@@ -304,6 +332,33 @@ class FinalCalc extends Component {
           visible={this.state.drawerVisible}
         >
           <p>A calculator to see what you need to get on your final to finish with the grade you want.</p>
+          <Button onClick={ () => this.updateFinalWeight(finalWeight ? 0 : 10) }>{ finalWeight ? "No Final" : "Final" }</Button>
+            <div>
+              <span>
+                Final Weight:
+              </span>
+              <InputNumber
+                style={{ width: `${100/3}%`, display: "inline-block", marginTop: "3%", marginLeft: "3%" }}
+                max={ 100 }
+                min={ 0 }
+                value={ Math.trunc(this.state.finalWeight*100) }
+                parser={string => string.replace(/[^\d\.]+/g, '')}
+                onChange={v => this.updateFinalWeight(v) }
+                />
+            </div>
+            <div>
+              <span>
+                MP Count:
+              </span>
+              <InputNumber
+                style={{ width: `${100/3}%`, display: "inline-block", marginTop: "3%", marginLeft: "3%" }}
+                max={ 10 }
+                min={ 1 }
+                value={ this.state.mpCount }
+                parser={string => string.replace(/[^\d\.]+/g, '')}
+                onChange={v => this.updateMPCount(v) }
+                />
+            </div>
         </Drawer>
       </div>
     )
