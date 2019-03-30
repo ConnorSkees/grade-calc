@@ -35,7 +35,6 @@ class FinalCalc extends Component {
       alert: <Alert message="x" style={{visibility: "hidden"}}/>,
 
       gradeWanted: 95,
-      view: 'mp',
 
       finalWeight: finalWeight,
       mpCount: 4,
@@ -141,10 +140,6 @@ class FinalCalc extends Component {
     }
   }
 
-  handleViewChange = view => {
-    this.setState({ view });
-  }
-
   updateFinalWeight = (finalWeight) => {
     let { inputs, mpCount } = this.state;
     finalWeight /= 100;
@@ -233,7 +228,7 @@ class FinalCalc extends Component {
         finalGrade = 100;
       } else if (finalGrade <= 0 || !finalGrade) {
         finalGrade = 0;
-        this.setState({ alert: <Alert message="You don't even need to take a final!" type="info" /> })
+        this.setState({ alert: <Alert message="You don't even need to take a final!" type="success" showIcon/> })
       } else {
         this.setState({ alert: <Alert message="x" type="info" style={{visibility: "hidden"}}/> })
       }
@@ -310,13 +305,7 @@ class FinalCalc extends Component {
     return (
       <div>
         <Card
-          title={
-            <Select defaultValue="mp" style={{ width: 140 }} onChange={this.handleViewChange}>
-              <Option value="mp">MP Calc</Option>
-              <Option value="gpa">GPA Calc</Option>
-              <Option value="final">Final Calc</Option>
-            </Select>
-        }
+          title={ "MP Calc" }
         extra={
           <Button onClick={ this.toggleDrawer } >Advanced</Button>
         }
