@@ -29,42 +29,12 @@ class FinalCalc extends Component {
     this.state = {
       gpa: 0,
       isAuto: true, // as opposed to manual
-
       drawerVisible: false,
-
       alert: <Alert message="x" style={{visibility: "hidden"}}/>,
-
       gradeWanted: 95,
-
       finalWeight: finalWeight,
       mpCount: 4,
-
       inputs: [],
-
-      weightDict: {
-        'AP': .5,
-        'dualenrollment': .25,
-        'honors': .25,
-        'regular': 0,
-      },
-
-      percentToGPA: {
-        // use the maximum per range
-        100: 4,   // A+ 99-100
-        98: 4,    // A  95-98
-        94: 3.67, // A- 93-94
-        92: 3.33, // B+ 91-92
-        90: 3,    // B  87-90
-        86: 2.67, // B- 85-85
-        // does not recieve honors weight past this point
-        84: 2.33, // C+ 83-84
-        82: 2,    // C  77-82
-        76: 1.67, // C- 75-76
-        74: 1.33, // D+ 73-74
-        72: 1,    // D  67-72
-        66: .67,  // D- 65-66
-        64: 0,    // F  0-64
-      }
     };
     this.initInputs();
   }
