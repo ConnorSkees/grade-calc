@@ -237,13 +237,14 @@ class FinalCalc extends Component {
 
             return (
               <div key={ i.title } style={{  alignSelf: "center", visibility: shouldDisplay }}>
-                <div style={{ width: `${100/3}%`, display:"inline-block" }}>
+                <label style={{ width: `${100/3}%`, display:"inline-block" }} for={ i.title }>
                   {i.title}
-                </div>
+                </label>
                 <InputNumber
                   formatter={ string => string === "0" ? '' : string }
                   style={ inputStyle }
                   key={ i.title }
+                  id={ i.title }
                   title={ i.title }
                   max={ 100 }
                   min={ 0 }
