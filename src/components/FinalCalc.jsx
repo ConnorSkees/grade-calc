@@ -22,16 +22,13 @@ const cardStyle = {
 class FinalCalc extends Component {
   constructor(props){
     super(props)
-
-    let finalWeight = .1
-
     this.state = {
       gpa: 0,
       isAuto: true, // as opposed to manual
       drawerVisible: false,
       alert: <Alert message="x" style={{visibility: "hidden"}}/>,
       gradeWanted: 95,
-      finalWeight: finalWeight,
+      finalWeight: .1,
       mpCount: 4,
       inputs: [],
     };
