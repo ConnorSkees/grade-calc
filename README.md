@@ -2,4 +2,4 @@
 
 Figure out what you need to get on the final to finish with the grade you want.
 
-Find it [here](https://connorskees.github.io/grade-calc/)
+Find it <a href="https://connorskees.github.io/grade-calc/" target="_blank">here</a>
