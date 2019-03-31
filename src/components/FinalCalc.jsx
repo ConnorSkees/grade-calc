@@ -4,7 +4,6 @@ import { Alert, Drawer, InputNumber, Card, Select, Button } from 'antd';
 import GradeTags from './GradeTags'
 import PercentSelectors from './PercentSelectors'
 
-const Option = Select.Option;
 
 const inputStyle = {
   width: `${100/3}%`,
@@ -237,7 +236,7 @@ class FinalCalc extends Component {
 
             return (
               <div key={ i.title } style={{  alignSelf: "center", visibility: shouldDisplay }}>
-                <label style={{ width: `${100/3}%`, display:"inline-block" }} for={ i.title }>
+                <label style={{ width: `${100/3}%`, display:"inline-block" }} htmlFor={ i.title }>
                   {i.title}
                 </label>
                 <InputNumber
