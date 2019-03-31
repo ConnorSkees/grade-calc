@@ -143,14 +143,6 @@ class FinalCalc extends Component {
       'value': 0,
       'weight': finalWeight,
     })
-
-    // inputs.map(i => {
-    //   if (i.title !== "Final") {
-    //     i.weight = (1-finalWeight)/mpCount;
-    //   }
-    //   return i;
-    // })
-
     this.setState({ inputs: newInputs, mpCount })
   }
 
