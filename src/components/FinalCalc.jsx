@@ -173,11 +173,12 @@ class FinalCalc extends Component {
 
       // console.log("Total: ", total);
       // console.log("Grade Wanted: ", gradeWanted-.5);
-			for (let i=0; i*finalWeight+total<=gradeWanted-.5; i++) {
+			for (let i=0; i*finalWeight+total<=gradeWanted-.5;) {
         if (i > 101){
           break;
         }
-  			finalGrade = i;
+  			finalGrade = Math.ceil(i);
+         i += .1;
   		}
       // console.log("Final grade: ", finalGrade);
 
@@ -205,7 +206,7 @@ class FinalCalc extends Component {
     let { alert, inputs, isAuto, gradeWanted, finalWeight } = this.state;
 
     console.log(inputs)
-
+    console.log(inputs.map(i => i.value*i.weight).reduce((a, b) => a+b));
     let percentage = Math.round(inputs.map(i => i.value*i.weight).reduce((a, b) => a+b))
 
     if (!isAuto) {
