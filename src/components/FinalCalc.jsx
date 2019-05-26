@@ -10,6 +10,7 @@ const inputStyle = {
   display: "inline-block",
   marginTop: "3%",
   alignSelf: "center",
+  color: "initial",
 }
 
 const cardStyle = {
